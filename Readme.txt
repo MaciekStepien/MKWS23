@@ -1,0 +1,1 @@
+Python project titled: Parameters of Chapman-Jouguet detonation of methane-air and hydrogen-air mixtures
