@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sdtoolbox.postshock import CJspeed
 from multiprocessing import Pool, cpu_count
+import os
 
 # Define a function to calculate CJ speed for a given set of parameters
 def calculate_cj_speed(args):
@@ -11,6 +12,10 @@ def calculate_cj_speed(args):
     gas.TPX = T, p, q
     cj_speed = CJspeed(p, T, q, mech)
     return cj_speed
+
+
+# Specify the directory to save the plots
+save_dir = 'D:\Studia\Semestr VII\MKWS\MKWS23\Results'
 
 # Define input parameters
 P1 = 100000  # Initial pressure [Pa]
@@ -53,18 +58,24 @@ if __name__ == '__main__':
     plt.ylabel('CJ detonation speed [m/s]')
     plt.title('CJ Detonation Speed vs Pressure (Methane)')
     plt.legend()
-    plt.show()
+
+    # Save the plot as an image in the specified directory
+    plt.savefig(os.path.join(save_dir, 'cj_speed_CH4_pressure.png'))
+    plt.close()
 
     # Plot CJ detonation speed vs. temperature
     plt.figure(figsize=(20, 10))
     for i in range(p_steps // 2):
         pbar = np.linspace(P1, Pmax, p_steps)
-        plt.plot(T_array, cj_speed[2 * i, :], label='p = %.1f bar' % pbar[2 * i])
+        plt.plot(T_array, cj_speed[2 * i, :], label='p = %.1f bar' % (pbar[2 * i]/100000))
     plt.xlabel('Temperature [K]')
     plt.ylabel('CJ detonation speed [m/s]')
     plt.title('CJ Detonation Speed vs Temperature (Methane)')
     plt.legend()
-    plt.show()
+
+    # Save the plot as an image in the specified directory
+    plt.savefig(os.path.join(save_dir, 'cj_speed_CH4_temperature.png'))
+    plt.close()
 
     # HYDROGEN CALCULATIONS
 
@@ -104,7 +115,10 @@ if __name__ == '__main__':
     plt.ylabel('CJ detonation speed [m/s]')
     plt.title('CJ Detonation Speed vs Pressure (Hydrogen)')
     plt.legend()
-    plt.show()
+
+    # Save the plot as an image in the specified directory
+    plt.savefig(os.path.join(save_dir, 'cj_speed_H2_pressure.png'))
+    plt.close()
 
     # Plot CJ detonation speed vs. temperature for hydrogen-air
     plt.figure(figsize=(20, 10))
@@ -115,4 +129,8 @@ if __name__ == '__main__':
     plt.ylabel('CJ detonation speed [m/s]')
     plt.title('CJ Detonation Speed vs Temperature (Hydrogen)')
     plt.legend()
-    plt.show()
+
+    # Save the plot as an image in the specified directory
+    plt.savefig(os.path.join(save_dir, 'cj_speed_H2_temperature.png'))
+    plt.close()
+
