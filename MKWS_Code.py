@@ -53,8 +53,8 @@ if __name__ == '__main__':
     plt.figure(figsize=(20, 10))
     for i in range(T_steps // 2):
         T_array = np.linspace(T1, Tmax, T_steps)
-        plt.plot(np.linspace(P1, Pmax, p_steps), cj_speed[:, 2 * i], label='T = %.0f K' % T_array[2 * i])
-    plt.xlabel('Pressure [Pa]')
+        plt.plot(np.linspace(P1/100000, Pmax/100000, p_steps), cj_speed[:, 2 * i], label='T = %.0f K' % T_array[2 * i])
+    plt.xlabel('Pressure [bar]')
     plt.ylabel('CJ detonation speed [m/s]')
     plt.title('CJ Detonation Speed vs Pressure (Methane)')
     plt.legend()
@@ -110,8 +110,8 @@ if __name__ == '__main__':
     plt.figure(figsize=(20, 10))
     for i in range(T_steps_h2 // 2):
         T_array_h2 = np.linspace(T1_h2, Tmax_h2, T_steps_h2)
-        plt.plot(np.linspace(P1_h2, Pmax_h2, p_steps_h2), cj_speed_h2[:, 2 * i], label='T = %.0f K' % T_array_h2[2 * i])
-    plt.xlabel('Pressure [Pa]')
+        plt.plot(np.linspace(P1_h2/100000, Pmax_h2/100000, p_steps_h2), cj_speed_h2[:, 2 * i], label='T = %.0f K' % T_array_h2[2 * i])
+    plt.xlabel('Pressure [bar]')
     plt.ylabel('CJ detonation speed [m/s]')
     plt.title('CJ Detonation Speed vs Pressure (Hydrogen)')
     plt.legend()
@@ -124,7 +124,7 @@ if __name__ == '__main__':
     plt.figure(figsize=(20, 10))
     for i in range(p_steps_h2 // 2):
         pbar_h2 = np.linspace(P1_h2, Pmax_h2, p_steps_h2)
-        plt.plot(T_array_h2, cj_speed_h2[2 * i, :], label='p = %.1f bar' % pbar_h2[2 * i])
+        plt.plot(T_array_h2, cj_speed_h2[2 * i, :], label='p = %.1f bar' % (pbar[2 * i]/100000))
     plt.xlabel('Temperature [K]')
     plt.ylabel('CJ detonation speed [m/s]')
     plt.title('CJ Detonation Speed vs Temperature (Hydrogen)')
