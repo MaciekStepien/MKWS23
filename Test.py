@@ -1,4 +1,3 @@
-#"GOOD_T_P_Multicore"
 import cantera as ct
 import numpy as np
 import matplotlib.pyplot as plt
@@ -52,7 +51,7 @@ if __name__ == '__main__':
         plt.plot(np.linspace(P1, Pmax, p_steps), cj_speed[:, 2 * i], label='T = %.0f K' % T_array[2 * i])
     plt.xlabel('Pressure [Pa]')
     plt.ylabel('CJ detonation speed [m/s]')
-    plt.title('CJ Detonation Speed vs Pressure')
+    plt.title('CJ Detonation Speed vs Pressure (Methane)')
     plt.legend()
     plt.show()
 
@@ -63,6 +62,57 @@ if __name__ == '__main__':
         plt.plot(T_array, cj_speed[2 * i, :], label='p = %.1f bar' % pbar[2 * i])
     plt.xlabel('Temperature [K]')
     plt.ylabel('CJ detonation speed [m/s]')
-    plt.title('CJ Detonation Speed vs Temperature')
+    plt.title('CJ Detonation Speed vs Temperature (Methane)')
+    plt.legend()
+    plt.show()
+
+    # HYDROGEN CALCULATIONS
+
+    # Define hydrogen input parameters
+    P1_h2 = 100000  # Initial pressure for hydrogen [Pa]
+    Pmax_h2 = 1000000  # Maximum pressure for hydrogen [Pa]
+    T1_h2 = 300  # Initial temperature for hydrogen [K]
+    Tmax_h2 = 1000  # Maximum temperature for hydrogen [K]
+    p_steps_h2 = 10  # Number of pressure steps for hydrogen
+    T_steps_h2 = 8  # Number of temperature steps for hydrogen
+    q_h2 = 'H2:2.0 O2:1.0'  # Composition for hydrogen
+    mech = 'gri30.cti'  # Mechanism file
+
+    # Generate a new list of arguments for the hydrogen-air case
+    args_h2 = [(p, T, q_h2, mech) for p in np.linspace(P1_h2, Pmax_h2, p_steps_h2) for T in np.linspace(T1_h2, Tmax_h2, T_steps_h2)]
+
+    # Create a new multiprocessing pool for hydrogen calculations
+    pool_h2 = Pool(processes=cpu_count())
+
+    # Calculate CJ speeds for each set of parameters for hydrogen-air
+    cj_speed_h2 = np.array(pool_h2.map(calculate_cj_speed, args_h2)).reshape((p_steps_h2, T_steps_h2))
+
+    # Close the pool of processes for hydrogen calculations
+    pool_h2.close()
+    pool_h2.join()
+
+    # Output CJ speeds for hydrogen-air
+    print('CJ computation for Hydrogen with composition ' + q_h2)
+    print('CJ speed:\n', np.round(cj_speed_h2, 1), '(m/s)')
+
+    # Plot CJ detonation speed vs. pressure for hydrogen-air
+    plt.figure(figsize=(20, 10))
+    for i in range(T_steps_h2 // 2):
+        T_array_h2 = np.linspace(T1_h2, Tmax_h2, T_steps_h2)
+        plt.plot(np.linspace(P1_h2, Pmax_h2, p_steps_h2), cj_speed_h2[:, 2 * i], label='T = %.0f K' % T_array_h2[2 * i])
+    plt.xlabel('Pressure [Pa]')
+    plt.ylabel('CJ detonation speed [m/s]')
+    plt.title('CJ Detonation Speed vs Pressure (Hydrogen)')
+    plt.legend()
+    plt.show()
+
+    # Plot CJ detonation speed vs. temperature for hydrogen-air
+    plt.figure(figsize=(20, 10))
+    for i in range(p_steps_h2 // 2):
+        pbar_h2 = np.linspace(P1_h2, Pmax_h2, p_steps_h2)
+        plt.plot(T_array_h2, cj_speed_h2[2 * i, :], label='p = %.1f bar' % pbar_h2[2 * i])
+    plt.xlabel('Temperature [K]')
+    plt.ylabel('CJ detonation speed [m/s]')
+    plt.title('CJ Detonation Speed vs Temperature (Hydrogen)')
     plt.legend()
     plt.show()
