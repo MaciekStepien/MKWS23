@@ -86,7 +86,7 @@ if __name__ == '__main__':
     Tmax_h2 = 1000  # Maximum temperature for hydrogen [K]
     p_steps_h2 = 10  # Number of pressure steps for hydrogen
     T_steps_h2 = 8  # Number of temperature steps for hydrogen
-    q_h2 = 'H2:2.0 O2:1.0'  # Composition for hydrogen
+    q_h2 = 'H2:2.0 O2:1.0 N2:3.76'  # Composition for hydrogen
     mech = 'gri30.cti'  # Mechanism file
 
     # Generate a new list of arguments for the hydrogen-air case
