@@ -24,7 +24,7 @@ T1 = 300  # Initial temperature [K]
 Tmax = 1000  # Maximum temperature [K]
 p_steps = 10  # Number of pressure steps
 T_steps = 8  # Number of temperature steps
-q = 'CH4:1.0 O2:2.0 N2:7.52'  # Composition
+q = 'CH4:1.5 O2:2.0 N2:7.52'  # Composition
 mech = 'gri30.cti'  # Mechanism file
 
 # Generate the list of arguments for the multiprocessing calculation
@@ -56,11 +56,11 @@ if __name__ == '__main__':
         plt.plot(np.linspace(P1/100000, Pmax/100000, p_steps), cj_speed[:, 2 * i], label='T = %.0f K' % T_array[2 * i])
     plt.xlabel('Pressure [bar]')
     plt.ylabel('CJ detonation speed [m/s]')
-    plt.title('CJ Detonation Speed vs Pressure (Methane)')
+    plt.title('CJ Detonation Speed vs Pressure (Methane slightly rich)')
     plt.legend()
 
     # Save the plot as an image in the specified directory
-    plt.savefig(os.path.join(save_dir, 'cj_speed_CH4_pressure.png'))
+    plt.savefig(os.path.join(save_dir, 'cj_speed_CH4_slightly_rich_pressure.png'))
     plt.close()
 
     # Plot CJ detonation speed vs. temperature
@@ -70,11 +70,11 @@ if __name__ == '__main__':
         plt.plot(T_array, cj_speed[2 * i, :], label='p = %.1f bar' % (pbar[2 * i]/100000))
     plt.xlabel('Temperature [K]')
     plt.ylabel('CJ detonation speed [m/s]')
-    plt.title('CJ Detonation Speed vs Temperature (Methane)')
+    plt.title('CJ Detonation Speed vs Temperature (Methane slightly rich)')
     plt.legend()
 
     # Save the plot as an image in the specified directory
-    plt.savefig(os.path.join(save_dir, 'cj_speed_CH4_temperature.png'))
+    plt.savefig(os.path.join(save_dir, 'cj_speed_CH4_slightly_rich_temperature.png'))
     plt.close()
 
     # HYDROGEN CALCULATIONS
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     Tmax_h2 = 1000  # Maximum temperature for hydrogen [K]
     p_steps_h2 = 10  # Number of pressure steps for hydrogen
     T_steps_h2 = 8  # Number of temperature steps for hydrogen
-    q_h2 = 'H2:2.0 O2:1.0 N2:3.76'  # Composition for hydrogen
+    q_h2 = 'H2:3.0 O2:1.0 N2:3.76'  # Composition for hydrogen
     mech = 'gri30.cti'  # Mechanism file
 
     # Generate a new list of arguments for the hydrogen-air case
@@ -113,11 +113,11 @@ if __name__ == '__main__':
         plt.plot(np.linspace(P1_h2/100000, Pmax_h2/100000, p_steps_h2), cj_speed_h2[:, 2 * i], label='T = %.0f K' % T_array_h2[2 * i])
     plt.xlabel('Pressure [bar]')
     plt.ylabel('CJ detonation speed [m/s]')
-    plt.title('CJ Detonation Speed vs Pressure (Hydrogen)')
+    plt.title('CJ Detonation Speed vs Pressure (Hydrogen slightly rich)')
     plt.legend()
 
     # Save the plot as an image in the specified directory
-    plt.savefig(os.path.join(save_dir, 'cj_speed_H2_pressure.png'))
+    plt.savefig(os.path.join(save_dir, 'cj_speed_H2_slightly_rich_pressure.png'))
     plt.close()
 
     # Plot CJ detonation speed vs. temperature for hydrogen-air
@@ -127,10 +127,10 @@ if __name__ == '__main__':
         plt.plot(T_array_h2, cj_speed_h2[2 * i, :], label='p = %.1f bar' % (pbar[2 * i]/100000))
     plt.xlabel('Temperature [K]')
     plt.ylabel('CJ detonation speed [m/s]')
-    plt.title('CJ Detonation Speed vs Temperature (Hydrogen)')
+    plt.title('CJ Detonation Speed vs Temperature (Hydrogen slightly rich)')
     plt.legend()
 
     # Save the plot as an image in the specified directory
-    plt.savefig(os.path.join(save_dir, 'cj_speed_H2_temperature.png'))
+    plt.savefig(os.path.join(save_dir, 'cj_speed_H2_slightly_rich_temperature.png'))
     plt.close()
 
