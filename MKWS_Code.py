@@ -24,7 +24,7 @@ T1 = 300  # Initial temperature [K]
 Tmax = 1000  # Maximum temperature [K]
 p_steps = 10  # Number of pressure steps
 T_steps = 8  # Number of temperature steps
-q = 'CH4:1.5 O2:2.0 N2:7.52'  # Composition
+q = 'CH4:2.0 O2:2.0 N2:7.52'  # Composition
 mech = 'gri30.cti'  # Mechanism file
 
 # Generate the list of arguments for the multiprocessing calculation
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     Tmax_h2 = 1000  # Maximum temperature for hydrogen [K]
     p_steps_h2 = 10  # Number of pressure steps for hydrogen
     T_steps_h2 = 8  # Number of temperature steps for hydrogen
-    q_h2 = 'H2:3.0 O2:1.0 N2:3.76'  # Composition for hydrogen
+    q_h2 = 'H2:4.0 O2:1.0 N2:3.76'  # Composition for hydrogen
     mech = 'gri30.cti'  # Mechanism file
 
     # Generate a new list of arguments for the hydrogen-air case
